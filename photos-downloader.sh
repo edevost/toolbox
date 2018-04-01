@@ -2,10 +2,10 @@
 # This script has to be executed from the root of the DCIM/ Directory
 # on the card. File naming sheme : "yymmdd-hhmm-dir-file.ext"
 
+# Get file number from filename, as it is not present in the image metadata
 
 # Use Exiftool at the command line to change the image file names: 
-exiftool '-filename<${CreateDate}-${filenumber}.%le' -d %y%m%d-%H%M -ext cr2 -r DCIM/
-
+exiftool '-filename<${CreateDate}-${filename;s/.*([0-9][0-9][0-9][0-9]).*/$1/}.%le' -d %y%m%d-%H%M -ext cr2 -r DCIM/
 # Use Exiftool to change the system file modification date to match the image createdate:
 exiftool '-filemodifydate<createdate' -ext cr2 -r DCIM/
 
@@ -23,8 +23,8 @@ exiftool '-Directory<CreateDate' -d /mnt/photos/Raw/%y/%y%m -ext cr2 -r DCIM/
 # ====================================
 ######################################
 
-# Use Exiftool at the command line to change the image file names: 
-exiftool '-filename<${CreateDate}-${filenumber}.%le' -d %y%m%d-%H%M -ext MOV -r DCIM/
+# Use Exiftool at the command line to change the image file names:
+exiftool '-filename<${CreateDate}-${filename;s/.*([0-9][0-9][0-9][0-9]).*/$1/}.%le' -d %y%m%d-%H%M -ext MOV -r DCIM/
 
 # Use Exiftool to change the system file modification date to match the image createdate:
 exiftool '-filemodifydate<createdate' -ext MOV -r DCIM/
